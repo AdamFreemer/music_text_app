@@ -15,7 +15,7 @@ class Routine
 
   def command_get
     print "> "
-    input = gets.downcase.chomp
+    input = gets.downcase.strip
     @command = input.split(/\s(?=(?:[^'"]|'[^']*'|"[^"]*")*$)/).select { |s| not s.empty? }.map { |s| s.gsub(/(^ +)|( +$)|(^["']+)|(["']+$)/,'') }
     repeat_input if @command.length == 0 or @command.length > 4
   end  
@@ -42,7 +42,6 @@ class Routine
     elsif command[0] == "add"
       add_song(command[1], command[2])
       run_sequence
-      ## TODO:check for uniqueness of song, if not unique get input again
     else
       repeat_input 
     end
