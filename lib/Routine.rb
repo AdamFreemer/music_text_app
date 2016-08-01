@@ -51,7 +51,7 @@ class Routine
       messages('duplicate')
     else
       song = { artist: artist, title: title, played: false }
-      @db << song  
+      @db << song
       messages('add-song', {artist: artist, title: title})  
     end  
   end
