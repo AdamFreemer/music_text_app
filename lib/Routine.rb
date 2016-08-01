@@ -58,11 +58,11 @@ class Routine
 
   def play_song(title)
     messages('play-song', title)
-    sleep
+    sleep_dots
     song_id = @db.index { |s| s[:title] == title }
     song = @db[song_id]
     song[:played] = true
-    messages('played-song', {artist: artist, title: title})
+    messages('played-song', {artist: song[:artist], title: song[:title]})
   end
 
   def show_all
@@ -99,7 +99,7 @@ class Routine
     run_sequence
   end
 
-  def sleep
+  def sleep_dots
     5.times { print '.'; sleep 0.5 }
   end
 
