@@ -52,7 +52,7 @@ class Routine
     else
       song = { artist: artist, title: title, played: false }
       @db << song
-      messages('add-song', {artist: artist, title: title})  
+      messages('add-song', { artist: artist, title: title })  
     end  
   end
 
@@ -62,7 +62,7 @@ class Routine
     song_id = @db.index { |s| s[:title] == title }
     song = @db[song_id]
     song[:played] = true
-    messages('played-song', {artist: song[:artist], title: song[:title]})
+    messages('played-song', { artist: song[:artist], title: song[:title] })
   end
 
   def show_all
