@@ -1,5 +1,4 @@
 class Routine
-  # attr_accessor
 
   def initialize
     @db = []
@@ -10,7 +9,7 @@ class Routine
     messages('run-sequence')
     command_get
     command_process(@command)
-    run_sequence if @quit = false
+    run_sequence if @quit == false
   end
 
   def command_get
@@ -48,10 +47,10 @@ class Routine
   end
 
   def add_song(title, artist)
-    if @db.find_all { |song| song[:title].downcase == title.downcase }.count != 0
+    if @db.find_all { |song| song[:title] == title.downcase }.count > 0
       messages('duplicate')
     else
-      song = {artist: artist, title: title, played: false}
+      song = { artist: artist, title: title, played: false }
       @db << song  
       messages('add-song', {artist: artist, title: title})  
     end  
@@ -59,10 +58,11 @@ class Routine
 
   def play_song(title)
     messages('play-song', title)
+    sleep
     song_id = @db.index { |s| s[:title] == title }
     song = @db[song_id]
     song[:played] = true
-    puts "\nPlayed: #{song[:title]} by #{song[:artist]}"
+    messages('played-song', {artist: artist, title: title})
   end
 
   def show_all
@@ -109,7 +109,7 @@ class Routine
     else  
       messages('show-all')
       songs.each do |song|
-        puts ":: #{song[:title]} by #{song[:artist]} | played: #{song[:played]}"
+        puts ":: #{song[:title].capitalize} by #{song[:artist].capitalize} | played: #{song[:played]}"
       end
     end  
   end 
@@ -121,8 +121,9 @@ class Routine
       when 'run-sequence' then puts "\nEnter 'help' for a list of commands."
       when 'repeat-input' then puts "Sorry, I don't understand your command, please try entering it again."
       when 'quit' then puts "Exiting, goodbye.."
-      when 'add-song' then puts "Added #{arg[:title]} by #{arg[:artist]}."
+      when 'add-song' then puts "Added #{arg[:title].capitalize} by #{arg[:artist].capitalize}."
       when 'play-song' then puts "\nPlaying: #{arg}..."
+      when 'played-song' then puts "\nPlayed: #{arg[:title].capitalize} by #{arg[:artist].capitalize}."
       when 'show-all' then puts "\nHere's a list of all your songs:"
       when 'show-all-by' then puts "\nHere's a list of all your songs by #{arg}:"
       when 'show-unplayed' then puts "\nHere's a list of all your unplayed songs:"
