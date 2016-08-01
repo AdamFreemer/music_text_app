@@ -28,8 +28,8 @@ class Routine
     elsif command[0] == "show" && command[1] == "all"
       show_all
       run_sequence
-    elsif command[0] == "show" && command[1] == "unplayed" && command[1] == "by"
-      show_unplayed_by(artist)  
+    elsif command[0] == "show" && command[1] == "unplayed" && command[2] == "by"
+      show_unplayed_by(command[3])  
     elsif command[0] == "show" && command[1] == "unplayed"
       show_unplayed
     elsif command[0] == "help"
@@ -66,6 +66,7 @@ class Routine
   end
 
   def show_all
+    messages('show-all')
     list_songs(@db)
   end
 
@@ -107,7 +108,6 @@ class Routine
     if songs.length == 0
       messages('no-songs')
     else  
-      messages('show-all')
       songs.each do |song|
         puts ":: #{song[:title].capitalize} by #{song[:artist].capitalize} | played: #{song[:played]}"
       end
