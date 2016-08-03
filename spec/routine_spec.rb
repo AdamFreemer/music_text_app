@@ -17,6 +17,5 @@ describe Routine do
 		  subject.show_all
 		end
 	end
-
-
+	
 end
