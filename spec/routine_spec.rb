@@ -1,7 +1,6 @@
 require "routine"
 
 describe Routine do
-
 	describe "#run_sequence" do
 		context "when @quit is false" do
 			it "should call 'run_sequence'" do
@@ -17,5 +16,4 @@ describe Routine do
 		  subject.show_all
 		end
 	end
-	
 end
